@@ -1,5 +1,11 @@
+import Header from './components/header';
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539]">
+      <Header />
+    </main>
+  );
 }
 
 export default App;
