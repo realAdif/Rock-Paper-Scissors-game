@@ -6,17 +6,17 @@ import ScissorsIcon from '../assets/icon-scissors.svg';
 Button.propTypes = {
   icon: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,
-  gradientColors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // gradientColors: PropTypes.arrayOf(PropTypes.string).isRequired,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-function Button({ icon, altText, gradientColors, className, onClick }) {
+function Button({ icon, altText, className, onClick }) {
+  const defaultStyle =
+    'w-[140px] h-[140px] flex justify-center items-center rounded-full';
+
   return (
-    <button
-      className={`w-[140px] h-[140px] flex justify-center items-center rounded-full bg-gradient-to-b from-[${gradientColors[0]}] to-[${gradientColors[1]}] ${className} `}
-      onClick={onClick}
-    >
+    <button className={`${defaultStyle} ${className} `} onClick={onClick}>
       <img
         src={icon}
         alt={altText}
@@ -35,7 +35,6 @@ export function PaperButton({ className, onClick }) {
     <Button
       icon={PaperIcon}
       altText="Paper Icon button"
-      gradientColors={['#ec9e0e', '#eca922']}
       className={className}
       onClick={onClick}
     />
@@ -45,12 +44,12 @@ RockButton.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
+// need to fix this UI
 export function RockButton({ className, onClick }) {
   return (
     <Button
       icon={RockIcon}
       altText="Rock Icon button"
-      gradientColors={['#dc2e4e', '#dd405d']}
       className={className}
       onClick={onClick}
     />
@@ -65,7 +64,6 @@ export function ScissorsButton({ className, onClick }) {
     <Button
       icon={ScissorsIcon}
       altText="Scissors Icon button"
-      gradientColors={['#4865f4', '#5671f5']}
       className={className}
       onClick={onClick}
     />

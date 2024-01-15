@@ -1,7 +1,8 @@
 export const choices = ['rock', 'paper', 'scissors'];
 
-export function getRandomChoice() {
-  return choices[Math.floor(Math.random() * choices.length)];
+export function getRandomChoice(userChoice) {
+  const otherChoices = choices.filter((choice) => choice !== userChoice);
+  return otherChoices[Math.floor(Math.random() * otherChoices.length)];
 }
 
 export function determineWinner(user, computer) {
@@ -13,5 +14,5 @@ export function determineWinner(user, computer) {
     scissors: 'paper',
   };
 
-  return winningCombinations[user] === computer ? 'user' : 'computer';
+  return winningCombinations[user] === computer ? 'YOU WIN' : 'YOU LOSE';
 }
