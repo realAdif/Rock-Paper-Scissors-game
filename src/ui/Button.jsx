@@ -50,7 +50,7 @@ export function RockButton({ className, onClick }) {
     <Button
       icon={RockIcon}
       altText="Rock Icon button"
-      gradientColors={['#3b46f7', '#3b59f7']}
+      gradientColors={['#dc2e4e', '#dd405d']}
       className={className}
       onClick={onClick}
     />

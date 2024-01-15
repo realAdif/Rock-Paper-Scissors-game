@@ -1,21 +1,39 @@
-import iconPaperImage from '../assets/icon-paper.svg';
-import iconRockImage from '../assets/icon-rock.svg';
-import iconScissorsImage from '../assets/icon-scissors.svg';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import RuleImage from '../assets/image-rules.svg';
+import CloseIcon from '../assets/icon-close.svg';
 
-function Rules() {
+export default function Rules() {
+  const [openRule, setOpenRule] = useState(false);
+  const handleRule = () => {
+    setOpenRule(!openRule);
+  };
   return (
-    <div className="bg-white w-fit p-6 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl text-dark-text">RULES</h1>
-        <button>
-          <img src="" alt="close icon" className="w-[20px] h-[20px]" />
-        </button>
-      </div>
-      <button className="cursor-pointer p-6">
-        <img src="" alt="image of te rules" />
+    <div className="container mx-auto flex lg:justify-end justify-center mb-12">
+      <button
+        className="text-white  text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
+        onClick={() => handleRule()}
+      >
+        RULES
       </button>
+      {openRule && <RuleScreen onClose={handleRule} />}
     </div>
   );
 }
+RuleScreen.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
-export default Rules;
+function RuleScreen({ onClose }) {
+  return (
+    <div className="bg-white absolute top-0 h-full w-full">
+      <div className="flex flex-col justify-between items-center h-full">
+        <h1 className="mt-24 text-3xl text-dark-text">Rules</h1>
+        <img src={RuleImage} alt="Rules" className="w-full p-4" />
+        <button onClick={onClose}>
+          <img src={CloseIcon} alt="Close Icon" className="mb-24" />
+        </button>
+      </div>
+    </div>
+  );
+}
