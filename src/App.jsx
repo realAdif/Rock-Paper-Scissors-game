@@ -11,8 +11,16 @@ function App() {
   });
   // Update localStorage whenever the score changes
   useEffect(() => {
-    window.localStorage.setItem('score', score);
-  }, [score]);
+    const handleBeforeUnload = () => {
+      window.localStorage.removeItem('score');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   const [userChoice, setUserChoice] = useState(null);
   const [showGame, setShowGame] = useState(false);

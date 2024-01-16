@@ -14,7 +14,6 @@ function Game({ userChoice, onResetGame, setScore }) {
   const [winner, setWinner] = useState(null);
 
   useEffect(() => {
-    console.log('Running effect', userChoice);
     if (userChoice) {
       const randomChoice = getRandomChoice(userChoice);
       setComputerChoice(randomChoice);
@@ -24,6 +23,7 @@ function Game({ userChoice, onResetGame, setScore }) {
         setScore((prevScore) => prevScore + 1);
       }
     }
+    console.log(`'Game effect', User: ${userChoice}`);
   }, [userChoice, setScore]);
   return (
     <div className="container mx-auto">
