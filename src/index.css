@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer {
+  .rock {
+    background: rgb(220, 46, 78);
+    background: linear-gradient(
+      0deg,
+      rgba(220, 46, 78, 1) 0%,
+      rgba(221, 64, 93, 1) 100%
+    );
+  }
+}

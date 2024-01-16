@@ -6,17 +6,20 @@ import ScissorsIcon from '../assets/icon-scissors.svg';
 Button.propTypes = {
   icon: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,
-  // gradientColors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  gradientColors: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-function Button({ icon, altText, className, onClick }) {
-  const defaultStyle =
-    'w-[140px] h-[140px] flex justify-center items-center rounded-full';
+function Button({ icon, altText, className, onClick, gradientColors }) {
+  // bg-gradient-to-t from-[#ec9e0e] to-[#eca922]
+  const defaultStyle = `w-[140px] h-[140px] flex justify-center items-center rounded-full rock `;
 
   return (
-    <button className={`${defaultStyle} ${className} `} onClick={onClick}>
+    <button
+      className={`${defaultStyle} ${className} ${gradientColors}`}
+      onClick={onClick}
+    >
       <img
         src={icon}
         alt={altText}
@@ -26,24 +29,6 @@ function Button({ icon, altText, className, onClick }) {
   );
 }
 
-PaperButton.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-};
-export function PaperButton({ className, onClick }) {
-  return (
-    <Button
-      icon={PaperIcon}
-      altText="Paper Icon button"
-      className={className}
-      onClick={onClick}
-    />
-  );
-}
-RockButton.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-};
 // need to fix this UI
 export function RockButton({ className, onClick }) {
   return (
@@ -52,13 +37,10 @@ export function RockButton({ className, onClick }) {
       altText="Rock Icon button"
       className={className}
       onClick={onClick}
+      gradientColors={'bg-gradient-to-t from-[#dc2e4e] to-[#dd405d]'} //['#dc2e4e', '#dd405d']
     />
   );
 }
-ScissorsButton.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-};
 export function ScissorsButton({ className, onClick }) {
   return (
     <Button
@@ -66,6 +48,31 @@ export function ScissorsButton({ className, onClick }) {
       altText="Scissors Icon button"
       className={className}
       onClick={onClick}
+      gradientColors={'bg-gradient-to-t from-[#ec9e0e] to-[#eca922]'} //['#ec9e0e', '#eca922']
     />
   );
 }
+export function PaperButton({ className, onClick }) {
+  return (
+    <Button
+      icon={PaperIcon}
+      altText="Paper Icon button"
+      className={className}
+      onClick={onClick}
+      gradientColors={'bg-gradient-to-t from-[#4865f4] to-[#5671f5]'} // ['#4865f4', '#5671f5']
+    />
+  );
+}
+PaperButton.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
+
+RockButton.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
+ScissorsButton.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
