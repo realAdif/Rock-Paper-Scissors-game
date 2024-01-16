@@ -19,32 +19,27 @@ function Game({ userChoice, onResetGame }) {
   }, [userChoice]);
   return (
     <div className="container mx-auto">
-      {/* <div className="flex justify-between  text-white text-md mt-12 px-6 text-center">
-        <div className="flex flex-col items-center gap-y-3">
-          <p>YOU PICKED</p>
-          {userChoice === 'paper' && <PaperButton />}
-          {userChoice === 'rock' && <RockButton />}
-          {userChoice === 'scissors' && <ScissorsButton />}
-        </div>
-        <button onClick={onResetGame}>Play</button>
-        <p>Winner is: {winner}</p>
-        <div className="flex flex-col items-center gap-y-3">
-          <p>THE HOUSE PICKED</p>
-          <div className="w-[140px] h-[140px] bg-[#3b4363] bg-opacity-25 rounded-full">
-            {computerChoice === 'paper' && <PaperButton />}
-            {computerChoice === 'rock' && <RockButton />}
-            {computerChoice === 'scissors' && <ScissorsButton />}
-          </div>
-        </div>
-      </div> */}
-      <div>
-        <div className="flex justify-between items-center mx-4 ">
+      {/* lg */}
+      <div className="md:block hidden">
+        <div className="flex justify-between items-center mx-4">
+          {/* user */}
           <div>
             {userChoice === 'paper' && <PaperButton />}
             {userChoice === 'rock' && <RockButton />}
             {userChoice === 'scissors' && <ScissorsButton />}
             <p className="text-white mt-8 text-center">YOU PICKED</p>
           </div>
+          {/* text */}
+          <div className="w-fit mx-auto ">
+            <h1 className="text-white text-6xl my-4">{winner}</h1>
+            <button
+              className="text-dark-text bg-white w-full py-2 rounded-lg"
+              onClick={onResetGame}
+            >
+              PLAY AGAIN
+            </button>
+          </div>
+          {/* computer*/}
           <div>
             {computerChoice === 'paper' && <PaperButton />}
             {computerChoice === 'rock' && <RockButton />}
@@ -52,10 +47,31 @@ function Game({ userChoice, onResetGame }) {
             <p className="text-white mt-8 text-center">THE HOUSE PICKED</p>
           </div>
         </div>
+      </div>
+      {/* sm */}
+      <div className="md:hidden">
+        {/* icons */}
+        <div className="flex justify-between items-center mx-4">
+          {/* user */}
+          <div>
+            {userChoice === 'paper' && <PaperButton />}
+            {userChoice === 'rock' && <RockButton />}
+            {userChoice === 'scissors' && <ScissorsButton />}
+            <p className="text-white mt-8 text-center">YOU PICKED</p>
+          </div>
+          {/* computer*/}
+          <div>
+            {computerChoice === 'paper' && <PaperButton />}
+            {computerChoice === 'rock' && <RockButton />}
+            {computerChoice === 'scissors' && <ScissorsButton />}
+            <p className="text-white mt-8 text-center">THE HOUSE PICKED</p>
+          </div>
+        </div>
+        {/* text */}
         <div className="w-fit mx-auto ">
           <h1 className="text-white text-6xl my-4">{winner}</h1>
           <button
-            className="text-dark-text bg-white w-full py-4 rounded-lg"
+            className="text-dark-text bg-white w-full py-2 rounded-lg"
             onClick={onResetGame}
           >
             PLAY AGAIN
