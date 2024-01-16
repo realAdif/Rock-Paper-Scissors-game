@@ -17,4 +17,5 @@
 <br>
 
 <h2>Screenshots of the Project</h2>
+![image](https://github.com/realAdif/Rock-Paper-Scissors-game/assets/90451018/1ee2d1d0-a590-4404-a724-e78a8e9cd0f0)
 
