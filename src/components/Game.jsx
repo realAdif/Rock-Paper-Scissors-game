@@ -6,17 +6,25 @@ import { getRandomChoice, determineWinner } from '../util/gameLogic';
 Game.propTypes = {
   userChoice: PropTypes.string.isRequired,
   onResetGame: PropTypes.func.isRequired,
+  setScore: PropTypes.func,
 };
 
-function Game({ userChoice, onResetGame }) {
+function Game({ userChoice, onResetGame, setScore }) {
   const [computerChoice, setComputerChoice] = useState(null);
   const [winner, setWinner] = useState(null);
 
   useEffect(() => {
-    const randomChoice = getRandomChoice(userChoice);
-    setComputerChoice(randomChoice);
-    setWinner(determineWinner(userChoice, randomChoice));
-  }, [userChoice]);
+    console.log('Running effect', userChoice);
+    if (userChoice) {
+      const randomChoice = getRandomChoice(userChoice);
+      setComputerChoice(randomChoice);
+      const result = determineWinner(userChoice, randomChoice);
+      setWinner(result);
+      if (result === 'YOU WIN') {
+        setScore((prevScore) => prevScore + 1);
+      }
+    }
+  }, [userChoice, setScore]);
   return (
     <div className="container mx-auto">
       {/* lg */}

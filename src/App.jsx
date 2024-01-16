@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserSelection from './components/UserSelection';
 import Header from './components/Header';
 import Game from './components/Game';
 import Rules from './components/Rules';
 
 function App() {
+  const [score, setScore] = useState(() => {
+    const savedScore = window.localStorage.getItem('score');
+    return savedScore !== null ? Number(savedScore) : 0;
+  });
+  // Update localStorage whenever the score changes
+  useEffect(() => {
+    window.localStorage.setItem('score', score);
+  }, [score]);
+
   const [userChoice, setUserChoice] = useState(null);
   const [showGame, setShowGame] = useState(false);
 
@@ -16,12 +25,18 @@ function App() {
     setUserChoice(null);
     setShowGame(false);
   };
+
   return (
     <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
-      <Header />
+      <Header scoreBoard={score} />
       {!showGame && <UserSelection onUserChoice={handleUserChoice} />}
       {showGame && (
-        <Game userChoice={userChoice} onResetGame={handleResetGame} />
+        <Game
+          userChoice={userChoice}
+          onResetGame={handleResetGame}
+          setScore={setScore}
+          style={{ display: showGame ? 'block' : 'none' }}
+        />
       )}
       <Rules />
     </main>

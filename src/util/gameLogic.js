@@ -6,8 +6,6 @@ export function getRandomChoice(userChoice) {
 }
 
 export function determineWinner(user, computer) {
-  if (user === computer) return 'tie';
-
   const winningCombinations = {
     rock: 'scissors',
     paper: 'rock',

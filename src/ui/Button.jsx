@@ -12,9 +12,7 @@ Button.propTypes = {
 };
 
 function Button({ icon, altText, className, onClick, gradientColors }) {
-  // bg-gradient-to-t from-[#ec9e0e] to-[#eca922]
   const defaultStyle = `w-[140px] h-[140px] flex justify-center items-center rounded-full rock `;
-
   return (
     <button
       className={`${defaultStyle} ${className} ${gradientColors}`}
@@ -29,7 +27,6 @@ function Button({ icon, altText, className, onClick, gradientColors }) {
   );
 }
 
-// need to fix this UI
 export function RockButton({ className, onClick }) {
   return (
     <Button
