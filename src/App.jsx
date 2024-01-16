@@ -43,7 +43,6 @@ function App() {
           userChoice={userChoice}
           onResetGame={handleResetGame}
           setScore={setScore}
-          style={{ display: showGame ? 'block' : 'none' }}
         />
       )}
       <Rules />

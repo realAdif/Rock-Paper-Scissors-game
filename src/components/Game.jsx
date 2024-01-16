@@ -76,7 +76,7 @@ function Game({ userChoice, onResetGame, setScore }) {
           </div>
         </div>
         {/* text */}
-        <div className="w-fit mx-auto ">
+        <div className="w-fit mx-auto my-4 ">
           <h1 className="text-white text-6xl my-4">{winner}</h1>
           <button
             className="text-dark-text bg-white w-full py-2 rounded-lg"
