@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserSelection from './components/UserSelection';
 import Header from './components/Header';
 import Game from './components/Game';
 import Rules from './components/Rules';
-
 function App() {
   const [score, setScore] = useState(() => {
     const savedScore = window.localStorage.getItem('score');
@@ -35,18 +35,28 @@ function App() {
   };
 
   return (
-    <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
-      <Header scoreBoard={score} />
-      {!showGame && <UserSelection onUserChoice={handleUserChoice} />}
-      {showGame && (
-        <Game
-          userChoice={userChoice}
-          onResetGame={handleResetGame}
-          setScore={setScore}
-        />
-      )}
-      <Rules />
-    </main>
+    <Router>
+      <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
+        <Header scoreBoard={score} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              showGame ? (
+                <Game
+                  userChoice={userChoice}
+                  onResetGame={handleResetGame}
+                  setScore={setScore}
+                />
+              ) : (
+                <UserSelection onUserChoice={handleUserChoice} />
+              )
+            }
+          />
+        </Routes>
+        <Rules />
+      </main>
+    </Router>
   );
 }
 
