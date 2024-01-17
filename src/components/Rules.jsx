@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RuleImage from '../assets/image-rules.svg';
 import CloseIcon from '../assets/icon-close.svg';
@@ -9,13 +10,20 @@ export default function Rules() {
     setOpenRule(!openRule);
   };
   return (
-    <div className="container mx-auto flex lg:justify-end justify-center mb-12">
+    <div className="container mx-auto flex lg:justify-between justify-center mb-12">
+      <a
+        className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
+        href={location.pathname === '/online' ? '/' : '/online'}
+      >
+        {location.pathname === '/online' ? 'vs PC' : 'Play with a mate!'}
+      </a>
       <button
         className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
         onClick={() => handleRule()}
       >
         RULES
       </button>
+
       {openRule && <RuleScreenSm onClose={handleRule} />}
       {openRule && <RuleScreenLg onClose={handleRule} />}
     </div>
