@@ -6,6 +6,7 @@ import CloseIcon from '../assets/icon-close.svg';
 
 export default function Rules() {
   const [openRule, setOpenRule] = useState(false);
+  const location = useLocation();
   const handleRule = () => {
     setOpenRule(!openRule);
   };
