@@ -11,7 +11,7 @@ export default function Rules() {
     setOpenRule(!openRule);
   };
   return (
-    <div className="container mx-auto flex lg:justify-between justify-center mb-12">
+    <div className="container mx-auto flex justify-between  mb-12">
       <a
         className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
         href={location.pathname === '/online' ? '/' : '/online'}

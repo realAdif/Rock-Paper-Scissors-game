@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Game from './components/Game';
 import Rules from './components/Rules';
 import MultiplayerGame from './components/MultiplayerGame';
+import MultiplayerGameRoom from './components/MultiplayerGameRoom';
 function App() {
   const [score, setScore] = useState(() => {
     const savedScore = window.localStorage.getItem('score');
@@ -55,7 +56,7 @@ function App() {
             }
           />
           <Route path="/online" element={<MultiplayerGame />} />
-          <Route path="/online/:id" element={<MultiplayerGame />} />
+          <Route path="/online/:id" element={<MultiplayerGameRoom />} />
         </Routes>
         <Rules />
       </main>

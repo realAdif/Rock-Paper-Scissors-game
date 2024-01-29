@@ -7,7 +7,7 @@ Header.propTypes = {
 function Header({ scoreBoard }) {
   return (
     <div className="flex justify-center pt-6 container mx-auto ">
-      <div className="w-full border-2 border-header-outline rounded-lg p-3 mx-4 flex justify-between ">
+      <div className="w-full border-2 border-header-outline rounded-lg p-3 flex justify-between ">
         <img src={LogoImage} alt="Rock,Paper and Scissors text image" />
         <div className="bg-white w-[150px] rounded-md flex flex-col items-center justify-center">
           <p className="text-score-text text-sm">SCORE</p>

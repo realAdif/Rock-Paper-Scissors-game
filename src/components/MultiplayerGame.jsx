@@ -1,8 +1,10 @@
 import { generateGameId } from '../util/onlineLogic';
-
+import { useNavigate } from 'react-router-dom';
 function MultiplayerGame() {
   const gameId = generateGameId();
   const gameLink = `/online/${gameId}`;
+  const navigate = useNavigate();
+
   const handleCopyClick = () => {
     // Create a temporary input element
     const tempInput = document.createElement('input');
@@ -20,6 +22,13 @@ function MultiplayerGame() {
     // Optionally, you can provide user feedback (e.g., a notification)
     alert(`Game ID copied: ${gameId}`);
   };
+  const handleJoinGame = () => {
+    // Retrieve the game ID from the input field
+    const enteredGameId = document.getElementById('gameIdInput').value;
+
+    // Navigate to the specified game's route
+    navigate(`/online/${enteredGameId}`);
+  };
 
   return (
     <section className="flex flex-col lg:flex-row  gap-x-6 justify-center text-white border-2 border-header-outline bg-white bg-opacity-10  rounded-lg p-6 w-fit mx-auto">
@@ -36,12 +45,13 @@ function MultiplayerGame() {
       <div className="flex flex-col items-center gap-y-6 p-3 lg:border-l-2 lg:border-t-0  border-t border-header-outline">
         <p>Join a game</p>
         <input
+          id="gameIdInput"
           type="text"
           placeholder="enter the game id"
           className="mx-3 text-center py-3 rounded-md text-black"
         />
         <button
-          onClick={handleCopyClick}
+          onClick={handleJoinGame}
           className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
         >
           Join a game

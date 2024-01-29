@@ -1,5 +1,5 @@
 const API_BASE_URL =
-  'https://0sbtgksbzj.execute-api.ap-southeast-2.amazonaws.com/'; // Replace with your actual API endpoint
+  'https://0sbtgksbzj.execute-api.ap-southeast-2.amazonaws.com'; // Replace with your actual API endpoint
 // Function to create a new game
 export const createGame = async (data) => {
   try {
@@ -24,7 +24,9 @@ export const createGame = async (data) => {
 // Function to get game by ID
 export const getGameById = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/gameId/${id}`);
+    const response = await fetch(`${API_BASE_URL}/gameId/${id}`, {
+      credentials: 'include',
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to get game with ID ${id}`);
