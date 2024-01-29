@@ -1,34 +1,31 @@
+import { useState } from 'react';
 import { generateGameId } from '../util/onlineLogic';
 import { useNavigate } from 'react-router-dom';
+import { getGameById } from '../api/gameAPI';
+
 function MultiplayerGame() {
+  const [error, setError] = useState(false);
   const gameId = generateGameId();
-  const gameLink = `/online/${gameId}`;
   const navigate = useNavigate();
 
   const handleCopyClick = () => {
-    // Create a temporary input element
-    const tempInput = document.createElement('input');
-    // Set the value of the input to the generated game ID
-    tempInput.value = gameLink;
-    // Append the input to the body
-    document.body.appendChild(tempInput);
-    // Select the text in the input
-    tempInput.select();
-    tempInput.setSelectionRange(0, 99999); // For mobile devices
-    // Execute the copy command
-    document.execCommand('copy');
-    // Remove the temporary input
-    document.body.removeChild(tempInput);
-    // Optionally, you can provide user feedback (e.g., a notification)
-    alert(`Game ID copied: ${gameId}`);
+    navigate(`/create`);
   };
-  const handleJoinGame = () => {
-    // Retrieve the game ID from the input field
-    const enteredGameId = document.getElementById('gameIdInput').value;
-
-    // Navigate to the specified game's route
-    navigate(`/online/${enteredGameId}`);
-  };
+  async function handleJoinGame() {
+    try {
+      const enteredGameId = document.getElementById('gameIdInput').value;
+      const fetchedGame = await getGameById(enteredGameId);
+      console.log('Fetched game:', fetchedGame);
+      setError(false);
+      // navigate(`/online/${gameId}`);
+    } catch (error) {
+      setError(true);
+      console.error('Error creating or fetching game:', error);
+      if (error.response && error.response.status) {
+        console.error('Status code:', error.response.status);
+      }
+    }
+  }
 
   return (
     <section className="flex flex-col lg:flex-row  gap-x-6 justify-center text-white border-2 border-header-outline bg-white bg-opacity-10  rounded-lg p-6 w-fit mx-auto">
@@ -56,6 +53,9 @@ function MultiplayerGame() {
         >
           Join a game
         </button>
+        <p className="text-sm text-red-500">
+          {error && 'Can not find the game'}
+        </p>
       </div>
     </section>
   );
