@@ -22,22 +22,32 @@ function MultiplayerGame() {
   };
 
   return (
-    <div className="flex justify-center text-white">
-      <div className=" flex flex-col">
-        <div className="text-center">
-          <h1>Welcome send a link to a mate!</h1>
-        </div>
-        <div className="flex flex-col items-center gap-y-6">
-          <p>Generated Game ID: {gameId}</p>
-          <button
-            onClick={handleCopyClick}
-            className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
-          >
-            Copy
-          </button>
-        </div>
+    <section className="flex flex-col lg:flex-row  gap-x-6 justify-center text-white border-2 border-header-outline bg-white bg-opacity-10  rounded-lg p-6 w-fit mx-auto">
+      <div className="flex flex-col justify-center items-center gap-y-6 p-3">
+        <p>Game id: {gameId}</p>
+        <button
+          onClick={handleCopyClick}
+          className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
+        >
+          Create a game
+        </button>
       </div>
-    </div>
+
+      <div className="flex flex-col items-center gap-y-6 p-3 lg:border-l-2 lg:border-t-0  border-t border-header-outline">
+        <p>Join a game</p>
+        <input
+          type="text"
+          placeholder="enter the game id"
+          className="mx-3 text-center py-3 rounded-md text-black"
+        />
+        <button
+          onClick={handleCopyClick}
+          className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
+        >
+          Join a game
+        </button>
+      </div>
+    </section>
   );
 }
 

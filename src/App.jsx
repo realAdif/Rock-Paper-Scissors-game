@@ -55,6 +55,7 @@ function App() {
             }
           />
           <Route path="/online" element={<MultiplayerGame />} />
+          <Route path="/online/:id" element={<MultiplayerGame />} />
         </Routes>
         <Rules />
       </main>
