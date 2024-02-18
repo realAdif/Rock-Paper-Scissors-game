@@ -1,5 +1,6 @@
 const API_BASE_URL =
   'https://0sbtgksbzj.execute-api.ap-southeast-2.amazonaws.com';
+
 // Function to create a new game
 export const createGame = async (data) => {
   console.log(JSON.stringify(data), 'API');
@@ -26,6 +27,7 @@ export const createGame = async (data) => {
 export const getGameById = async (id) => {
   try {
     const response = await fetch(`${API_BASE_URL}/gameId/${id}`);
+
     if (!response.ok) {
       throw new Error(`Failed to get game with ID ${id}`);
     }
@@ -35,6 +37,22 @@ export const getGameById = async (id) => {
     throw error;
   }
 };
-//function to update the game with id
+//function to add new player in the db
+
+export const addPlayer = async (id, data) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/gameId/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding a new player ADDPLAYER:', error);
+    throw error;
+  }
+};
 
 // function to update the game rounds with id

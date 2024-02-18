@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react';
-import { getGameById } from '../api/gameAPI';
+import { addPlayer, getGameById } from '../api/gameAPI';
 import { useParams } from 'react-router-dom';
 function MultiplayerJoin() {
   const { id } = useParams();
+  const [username, setUsername] = useState('Ace123');
   const [player, setPlayer] = useState({});
   const [playerCount, setPlayerCount] = useState();
   const [data, setData] = useState(null);
+
+  let playerObject = {
+    username: username,
+    isActive: true,
+    score: 0,
+  };
+
   // this is button to add the new player to the game
-  async function handleJoinGame() {
+  async function handleJoinGame(newPlayer) {
     try {
-      const fetchedGame = await getGameById(id);
-      console.log('Fetched game:', fetchedGame);
+      const updateGame = await addPlayer(id, newPlayer);
+      console.log('Successfully added player to the game:', updateGame);
     } catch (error) {
-      console.error('Error creating or fetching game:', error);
+      console.error('Error adding player to the game:', error);
+      // Check if error.response is defined and has a status property
       if (error.response && error.response.status) {
         console.error('Status code:', error.response.status);
       }
@@ -58,6 +67,7 @@ function MultiplayerJoin() {
       </p>
       <p>player count: {playerCount} </p>
       <p>game id : {id} </p>
+      <p>Your Name: {username}</p>
 
       {/* input */}
       <input
@@ -65,10 +75,12 @@ function MultiplayerJoin() {
         name="player2Username"
         id="/"
         placeholder="username"
-        className="my-8 mr-3  p-2 rounded-md"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="my-8 mr-3  p-2 rounded-md text-black"
       />
       {/* start game button */}
-      <button onClick={() => handleJoinGame()}>Join game</button>
+      <button onClick={() => handleJoinGame(playerObject)}>Join game</button>
     </main>
   );
 }
