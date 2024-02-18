@@ -9,7 +9,7 @@ function generateGameId() {
     gameId += characters.charAt(randomIndex);
   }
 
-  return gameId;
+  return gameId.toLowerCase();
 }
 
 export { generateGameId };

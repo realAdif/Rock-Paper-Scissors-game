@@ -1,44 +1,38 @@
 import { useState } from 'react';
-import { generateGameId } from '../util/onlineLogic';
 import { useNavigate } from 'react-router-dom';
 import { getGameById } from '../api/gameAPI';
 
 function MultiplayerGame() {
+  // navigate and error handles
   const [error, setError] = useState(false);
-  const gameId = generateGameId();
   const navigate = useNavigate();
 
-  const handleCopyClick = () => {
-    navigate(`/create`);
-  };
+  // checking game id and navigate to the lobby:id
   async function handleJoinGame() {
     try {
       const enteredGameId = document.getElementById('gameIdInput').value;
       const fetchedGame = await getGameById(enteredGameId);
       console.log('Fetched game:', fetchedGame);
       setError(false);
-      // navigate(`/online/${gameId}`);
+      navigate(`/lobby/${enteredGameId}`);
     } catch (error) {
       setError(true);
-      console.error('Error creating or fetching game:', error);
-      if (error.response && error.response.status) {
-        console.error('Status code:', error.response.status);
-      }
+      console.error('Status code:', error.response.status);
     }
   }
 
   return (
     <section className="flex flex-col lg:flex-row  gap-x-6 justify-center text-white border-2 border-header-outline bg-white bg-opacity-10  rounded-lg p-6 w-fit mx-auto">
+      {/* create a game */}
       <div className="flex flex-col justify-center items-center gap-y-6 p-3">
-        <p>Game id: {gameId}</p>
         <button
-          onClick={handleCopyClick}
+          onClick={() => navigate(`/create`)}
           className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
         >
           Create a game
         </button>
       </div>
-
+      {/* join game */}
       <div className="flex flex-col items-center gap-y-6 p-3 lg:border-l-2 lg:border-t-0  border-t border-header-outline">
         <p>Join a game</p>
         <input

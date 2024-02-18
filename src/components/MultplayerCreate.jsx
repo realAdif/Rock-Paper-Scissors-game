@@ -1,36 +1,40 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { createGame } from '../api/gameAPI';
 import { useNavigate } from 'react-router-dom';
 import { generateGameId } from '../util/onlineLogic';
-MultplayerCreate.propTypes = {
-  gameId: PropTypes.number,
-};
-function MultplayerCreate({ gameId }) {
+
+function MultplayerCreate() {
+  // navigate and error handles
   const navigate = useNavigate();
   const [username, setUsername] = useState(null);
-  // create a function to call the api to make a new game
-  gameId = generateGameId();
+  const [error, setError] = useState(false);
+  const [gameId] = useState(generateGameId());
 
+  // gameObj to send to server
   const gameObj = {
-    id: `${gameId}`,
+    id: gameId.toString(),
     players: [
       {
         username: username,
-        score: 0,
-      },
-      {
-        username: 'guest',
+        isActive: true,
         score: 0,
       },
     ],
   };
+
+  // api call to create a game and navigate to the lobby:id
   function handleCreateGame() {
-    createGame(gameObj);
-    // navigate(`/online/${gameId}`);
+    if (username) {
+      createGame(gameObj);
+      navigate(`/lobby/${gameId}/admin`, { state: { gameId: gameObj } });
+      setError(false);
+    } else {
+      setError(true);
+    }
   }
 
   return (
+    // need styling
     <section className="container mx-auto">
       <div className="text-white text-center">
         <p>Username</p>
@@ -42,8 +46,10 @@ function MultplayerCreate({ gameId }) {
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        {/* if this username is not null it will start the game */}
         <p>your username: {username}</p>
+        <p className="text-sm text-red-500">
+          {error && 'useranme can not be empty'}
+        </p>
         <p>Guest username: </p>
         <p>game id: {gameId}</p>
 

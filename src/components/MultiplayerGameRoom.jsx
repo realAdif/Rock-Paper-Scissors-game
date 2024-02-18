@@ -7,14 +7,15 @@ import UserSelection from './UserSelection';
 function MultiplayerGameRoom() {
   const { id } = useParams();
   // const [gameState, setGameState] = useState(null);
-  const [userName, setUserName] = useState(null);
+  const [userName, setUserName] = useState(false);
 
   useEffect(() => {
     const fetchGame = async () => {
       try {
         const gameData = await getGameById(id);
-        // setGameState(gameData);
-        setUserName(gameData.players[1].username);
+
+        setUserName(gameData.players[0].isActive.toString());
+        console.log(gameData.players[0].isActive.toString());
       } catch (error) {
         console.error('Error fetching game:', error);
       }
@@ -27,9 +28,11 @@ function MultiplayerGameRoom() {
   };
   return (
     <section className="text-white container mx-auto">
-      <div className="text-center w-full hidden">
+      <div className="absolute top-36 ">
         <h2>Game is starting</h2>
-        <p>Wait for player to join: {userName} </p>
+        <p>Game Id: {id}</p>
+        <p>Player1 ready:{userName} </p>
+        <p>Player2 ready: </p>
       </div>
       <UserSelection onUserChoice={handleUserChoice} />
     </section>
