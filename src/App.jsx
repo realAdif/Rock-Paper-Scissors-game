@@ -42,7 +42,7 @@ function App() {
   return (
     <Router>
       <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
-        <Header scoreBoard={score} />
+        <Header playerOne={score} />
         <Routes>
           <Route
             path="/"
@@ -65,10 +65,18 @@ function App() {
           {/* create a game room  */}
           <Route path="/create" element={<MultplayerCreate />} />
 
-          {/* waiting room   */}
+          {/* waiting room   
+            thing to do:
+            error handling
+            styling
+          */}
           <Route path="/lobby/:id/admin" element={<MultiplayerLobby />} />
 
-          {/*  setup */}
+          {/*  join a game room  
+            thing to do:
+            error handling
+            styling
+          */}
           <Route path="/lobby/:id/" element={<MultiplayerJoin />} />
 
           {/* game */}
