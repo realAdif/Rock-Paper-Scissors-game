@@ -8,7 +8,7 @@ function MultiplayerGameRoom() {
   const { id } = useParams();
   // const [gameState, setGameState] = useState(null);
   const [playerOne, setplayerOne] = useState(false);
-  const [playerTwo, setplayerTwo] = useState(false);
+
   const [playerCount, setPlayerCount] = useState(0);
   useEffect(() => {
     const fetchGame = async () => {
@@ -18,7 +18,6 @@ function MultiplayerGameRoom() {
         console.log(gameData);
         setPlayerCount(gameData.players.length);
         setplayerOne(gameData.players[0]);
-        setplayerTwo(gameData.players[1]);
       } catch (error) {
         console.error('Error fetching game:', error);
       }
@@ -39,10 +38,7 @@ function MultiplayerGameRoom() {
           PlayerOne Name:{playerOne.username} / is Player is ready:
           {playerOne.isActive.toString()}
         </p>
-        <p>
-          PlayerTwo Name:{playerOne.username} / is Player is ready:{' '}
-          {playerTwo.isActive.toString()}
-        </p>
+        <p>PlayerTwo Name:{playerOne.username} / is Player is ready: </p>
       </div>
       <UserSelection onUserChoice={handleUserChoice} />
     </section>

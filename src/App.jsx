@@ -9,6 +9,7 @@ import MultiplayerGameRoom from './components/MultiplayerGameRoom';
 import MultplayerCreate from './components/MultplayerCreate';
 import MultiplayerLobby from './components/MultiplayerLobby';
 import MultiplayerJoin from './components/MultiplayerJoin';
+
 function App() {
   const [score, setScore] = useState(() => {
     const savedScore = window.localStorage.getItem('score');
@@ -58,29 +59,20 @@ function App() {
               )
             }
           />
-
           {/* make a game room or join a game */}
           <Route path="/online" element={<MultiplayerGame />} />
-
           {/* create a game room  */}
           <Route path="/create" element={<MultplayerCreate />} />
+          {/* waiting room*/}
 
-          {/* waiting room   
-            thing to do:
-            error handling
-            styling
-          */}
           <Route path="/lobby/:id/admin" element={<MultiplayerLobby />} />
-
-          {/*  join a game room  
-            thing to do:
-            error handling
-            styling
-          */}
           <Route path="/lobby/:id/" element={<MultiplayerJoin />} />
-
-          {/* game */}
+          {/* games */}
           <Route path="/online/:id" element={<MultiplayerGameRoom />} />
+          <Route
+            path="/online/:id/playerTwo"
+            element={<MultiplayerGameRoom />}
+          />
         </Routes>
         <Rules />
       </main>

@@ -1,32 +1,48 @@
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getGameById } from '../api/gameAPI';
+import { useParams } from 'react-router-dom';
 
 function MultiplayerLobby() {
   // get the id from URL
-  const [gameId] = useState(useLocation().state.gameId);
-  const [gameObj, setGameObj] = useState(gameId);
-
+  const { id } = useParams();
   // players
-  const [player1] = useState({
-    username: gameObj.players[0]?.username,
-    isActive: gameObj.players[0].isActive,
-  });
-  // const [player2] = useState(null);
+  const [playerOne, setPlayerOne] = useState({});
+  const [playerTwo, setPlayerTwo] = useState({});
 
-  //  helpers
-  // function to check if both of the player are ready
-  // return true or false
-  function isPlayerReady(playerOne, playTwo) {
-    return playerOne.isActive && playTwo.isActive;
-  }
-  // function to make a api call by id and update players state
+  // run this function when the component loads
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const newData = await getGameById(id);
+        console.log('Fetched data:', newData);
+        setPlayerOne(newData.players[0]);
+        if (newData.players[1]) setPlayerTwo(newData.players[1]);
+      } catch (error) {
+        console.error('Error creating or fetching game:', error);
+        if (error.response && error.response.status) {
+          console.error('Status code:', error.response.status);
+        }
+      }
+    }
 
-  // navigate to online:id
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // get game update by gameid
-  async function updateGame() {
-    return setGameObj(await getGameById(gameId.id));
+  async function handleGetPlayer() {
+    try {
+      const newData = await getGameById(id);
+      console.log('Fetched data:', newData);
+      setPlayerOne(newData.players[0]);
+      if (newData.players[1]) setPlayerTwo(newData.players[1]);
+    } catch (error) {
+      console.error('Error creating or fetching game:', error);
+      if (error.response && error.response.status) {
+        console.error('Status code:', error.response.status);
+      }
+    }
   }
 
   return (
@@ -35,27 +51,25 @@ function MultiplayerLobby() {
       <div className="flex justify-around">
         <div className="w-fit">
           <p>
-            player 1 name:
-            {player1.username}
+            player 1 name:{' '}
+            {playerOne.username ? playerOne.username : 'Loading..'}
           </p>
-          <p>name is ready : {player1.isActive.toString()}</p>
-        </div>
-        <div className="w-fit">
           <p>
             player 2 name:
-            {gameObj.players[1]?.username || ' waiting for player..'}
-          </p>
-          <p>
-            name is ready:{' '}
-            {gameObj.players[1]?.isActive.toString() || 'waiting..'}
+            {playerTwo.username ? playerTwo.username : 'Loading..'}
           </p>
         </div>
       </div>
-      <p className="text-center mt-6">
-        if the player does not join the game within 2 min this will won&apos;t
-        work
-      </p>
-      <button onClick={() => updateGame()}>check</button>
+      <div className="text-center mt-6">
+        <h1>Steps:</h1>
+        <p>1.send the code to your mate: {id}</p>
+        <p>
+          2.to check if your mate has joined, click check to see if the player
+          as joined
+        </p>
+        <p>3.when you see you see player 2 name come up, you start the game!</p>
+      </div>
+      <button onClick={handleGetPlayer}>check</button>
     </main>
   );
 }

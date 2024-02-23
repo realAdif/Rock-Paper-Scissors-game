@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { addPlayer, getGameById } from '../api/gameAPI';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 function MultiplayerJoin() {
   const { id } = useParams();
   const [username, setUsername] = useState('Ace123');
   const [player, setPlayer] = useState({});
   const [playerCount, setPlayerCount] = useState();
+  const [error, setError] = useState('');
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   let playerObject = {
     username: username,
@@ -19,6 +23,7 @@ function MultiplayerJoin() {
     try {
       const updateGame = await addPlayer(id, newPlayer);
       console.log('Successfully added player to the game:', updateGame);
+      navigate(`/lobby/${id}/admin`, { state: { playerTwo: playerObject } });
     } catch (error) {
       console.error('Error adding player to the game:', error);
       // Check if error.response is defined and has a status property
@@ -38,6 +43,7 @@ function MultiplayerJoin() {
       } catch (error) {
         console.error('Error creating or fetching game:', error);
         if (error.response && error.response.status) {
+          setError('Can not find the game');
           console.error('Status code:', error.response.status);
         }
       }
@@ -79,6 +85,7 @@ function MultiplayerJoin() {
         onChange={(e) => setUsername(e.target.value)}
         className="my-8 mr-3  p-2 rounded-md text-black"
       />
+      <p>{error}</p>
       {/* start game button */}
       <button onClick={() => handleJoinGame(playerObject)}>Join game</button>
     </main>
