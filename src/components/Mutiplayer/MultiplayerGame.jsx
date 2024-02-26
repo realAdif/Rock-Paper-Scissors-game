@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getGameById } from '../api/gameAPI';
+import { getGameById } from '../../api/gameAPI';
 
 function MultiplayerGame() {
   // navigate and error handles
@@ -14,7 +14,7 @@ function MultiplayerGame() {
       const fetchedGame = await getGameById(enteredGameId);
       console.log('Fetched game:', fetchedGame);
       setError(false);
-      navigate(`/lobby/${enteredGameId}`);
+      navigate(`/lobby/${enteredGameId}/join`);
     } catch (error) {
       setError(true);
       console.error('Status code:', error.response.status);

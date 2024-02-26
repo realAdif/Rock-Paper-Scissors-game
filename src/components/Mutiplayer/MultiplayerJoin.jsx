@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addPlayer, getGameById } from '../api/gameAPI';
+import { addPlayer, getGameById } from '../../api/gameAPI';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +23,9 @@ function MultiplayerJoin() {
     try {
       const updateGame = await addPlayer(id, newPlayer);
       console.log('Successfully added player to the game:', updateGame);
-      navigate(`/lobby/${id}/admin`, { state: { playerTwo: playerObject } });
+      navigate(`/lobby/${id}/${username}/2`, {
+        state: { playerTwo: playerObject },
+      });
     } catch (error) {
       console.error('Error adding player to the game:', error);
       // Check if error.response is defined and has a status property

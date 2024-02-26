@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { getGameById } from '../api/gameAPI';
-import { useParams } from 'react-router-dom';
+import { getGameById } from '../../api/gameAPI';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function MultiplayerLobby() {
   // get the id from URL
-  const { id } = useParams();
+  const { id, name, player } = useParams();
+  const navigate = useNavigate();
   // players
   const [playerOne, setPlayerOne] = useState({});
   const [playerTwo, setPlayerTwo] = useState({});
-
   // run this function when the component loads
   useEffect(() => {
     async function fetchData() {
@@ -45,13 +45,23 @@ function MultiplayerLobby() {
     }
   }
 
+  // navigate to the game
+
+  function handleGameNavigate() {
+    console.log('Navigating to game');
+    if (playerOne.username != null && playerTwo.username != null) {
+      console.log('Navigating to game 1');
+      navigate(`/online/${id}/${name}/${player}`);
+    }
+  }
+
   return (
     <main className=" container mx-auto h-full text-white">
       <h1 className="text-center">Loddy</h1>
       <div className="flex justify-around">
         <div className="w-fit">
           <p>
-            player 1 name:{' '}
+            player 1 name:
             {playerOne.username ? playerOne.username : 'Loading..'}
           </p>
           <p>
@@ -69,7 +79,14 @@ function MultiplayerLobby() {
         </p>
         <p>3.when you see you see player 2 name come up, you start the game!</p>
       </div>
-      <button onClick={handleGetPlayer}>check</button>
+      <div className="w-full mx-auto">
+        <button onClick={handleGetPlayer} className="mx-3">
+          check
+        </button>
+        <button className="mx-3" onClick={handleGameNavigate}>
+          Start Game!
+        </button>
+      </div>
     </main>
   );
 }

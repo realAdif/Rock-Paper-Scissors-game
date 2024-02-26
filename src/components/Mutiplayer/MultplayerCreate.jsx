@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { createGame } from '../api/gameAPI';
+import { createGame } from '../../api/gameAPI';
 import { useNavigate } from 'react-router-dom';
-import { generateGameId } from '../util/onlineLogic';
+import { generateGameId } from '../../util/onlineLogic';
 
 function MultplayerCreate() {
   // navigate and error handles
@@ -26,7 +26,9 @@ function MultplayerCreate() {
   function handleCreateGame() {
     if (username) {
       createGame(gameObj);
-      navigate(`/lobby/${gameId}/admin`, { state: { playerOne: gameObj } });
+      navigate(`/lobby/${gameId}/${username}/1`, {
+        state: { playerOne: gameObj },
+      });
       setError(false);
     } else {
       setError(true);
