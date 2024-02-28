@@ -55,6 +55,7 @@ function App() {
                   onResetGame={handleResetGame}
                   setScore={setScore}
                   isOnline={false}
+                  playAgain={true}
                 />
               ) : (
                 <UserSelection onUserChoice={handleUserChoice} />
@@ -69,12 +70,12 @@ function App() {
           <Route path="/lobby/:id/join" element={<MultiplayerJoin />} />
           {/* waiting room */}
           <Route
-            path="/lobby/:id/:name/:player"
+            path="/lobby/:id/:name/:playerId"
             element={<MultiplayerLobby />}
           />
           {/* games */}
           <Route
-            path="/online/:id/:name/:player"
+            path="/online/:id/:name/:playerId"
             element={<MultiplayerGameRoom />}
           />
         </Routes>

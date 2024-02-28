@@ -13,6 +13,7 @@ Game.propTypes = {
   playerName: PropTypes.string,
   // online settings
   isOnline: PropTypes.bool.isRequired,
+  playAgain: PropTypes.bool,
 };
 
 function Game({
@@ -23,10 +24,10 @@ function Game({
   playerChoice,
   playerName,
   isOnline,
+  playAgain,
 }) {
   const [computerChoice, setComputerChoice] = useState(null);
   const [winner, setWinner] = useState(null);
-
   useEffect(() => {
     //single game
     if (userChoice && !isOnline) {
@@ -41,11 +42,9 @@ function Game({
     // online game
     if (playerChoice && isOnline) {
       const result = determineWinner(userChoice, playerChoice);
-      console.log(`Game effect, User: ${playerChoice}`);
       setWinner(result);
       console.log(result);
     }
-    console.log(`'Game effect', User: ${userChoice}`);
   }, [userChoice, setScore]);
 
   return (
@@ -64,9 +63,19 @@ function Game({
           </div>
           {/* text */}
           <div className="w-fit mx-auto ">
-            <h1 className="text-white text-6xl my-4">{winner}</h1>
+            <h1 className="text-white text-6xl my-4">
+              {winner}
+              {
+                // if the game is online and the player has not picked
+                !playerChoice && 'WAITING...'
+              }
+            </h1>
             <button
-              className="text-dark-text bg-white w-full py-2 rounded-lg"
+              className={
+                playAgain
+                  ? `text-dark-text bg-white w-full py-2 rounded-lg`
+                  : 'hidden'
+              }
               onClick={onResetGame}
             >
               PLAY AGAIN
@@ -76,7 +85,6 @@ function Game({
           <div>
             {isOnline ? (
               <div>
-                <div className="w-[140px] h-[140px] bg-slate-500 rounded-full"></div>
                 {playerChoice === 'rock' && <RockButton />}
                 {playerChoice === 'paper' && <PaperButton />}
                 {playerChoice === 'scissors' && <ScissorsButton />}
@@ -88,7 +96,12 @@ function Game({
                 {computerChoice === 'scissors' && <ScissorsButton />}
               </div>
             )}
-
+            {!playerChoice && (
+              <div className="w-[140px] h-[140px] bg-slate-500 rounded-full mx-auto"></div>
+            )}
+            <p className="text-white mt-8 text-center">
+              {!playerChoice && 'WAITING FOR PLAYER'}
+            </p>
             <p className="text-white mt-8 text-center">
               {playerName ? playerName.toUpperCase() : 'THE HOUSE PICKED'}
             </p>

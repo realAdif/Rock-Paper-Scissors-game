@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 function MultiplayerLobby() {
   // get the id from URL
-  const { id, name, player } = useParams();
+  const { id, name, playerId } = useParams();
   const navigate = useNavigate();
   // players
   const [playerOne, setPlayerOne] = useState({});
@@ -51,7 +51,7 @@ function MultiplayerLobby() {
     console.log('Navigating to game');
     if (playerOne.username != null && playerTwo.username != null) {
       console.log('Navigating to game 1');
-      navigate(`/online/${id}/${name}/${player}`);
+      navigate(`/online/${id}/${name}/${playerId}`);
     }
   }
 

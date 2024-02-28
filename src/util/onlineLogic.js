@@ -12,20 +12,16 @@ function generateGameId() {
   return gameId.toLowerCase();
 }
 
-function getWinner(player1, player2) {
-  if (player1 === player2) {
-    return "It's a tie!";
-  }
+function findSameRound(roundArray, currentPlayer, currentRound) {
+  if (roundArray.length <= 1) return [];
 
-  if (
-    (player1 === 'rock' && player2 === 'scissors') ||
-    (player1 === 'scissors' && player2 === 'paper') ||
-    (player1 === 'paper' && player2 === 'rock')
-  ) {
-    return 'Player 1 wins!';
-  } else {
-    return 'Player 2 wins!';
-  }
+  const playerId = currentPlayer === 0 ? 1 : 0;
+
+  const userPlayer = roundArray.filter(
+    (player) => player.round === currentRound && player.id === playerId
+  );
+
+  return userPlayer;
 }
 
-export { generateGameId, getWinner };
+export { generateGameId, findSameRound };

@@ -26,7 +26,7 @@ function MultplayerCreate() {
   function handleCreateGame() {
     if (username) {
       createGame(gameObj);
-      navigate(`/lobby/${gameId}/${username}/1`, {
+      navigate(`/lobby/${gameId}/${username}/0`, {
         state: { playerOne: gameObj },
       });
       setError(false);

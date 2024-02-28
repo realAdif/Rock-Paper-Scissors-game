@@ -23,7 +23,7 @@ function MultiplayerJoin() {
     try {
       const updateGame = await addPlayer(id, newPlayer);
       console.log('Successfully added player to the game:', updateGame);
-      navigate(`/lobby/${id}/${username}/2`, {
+      navigate(`/lobby/${id}/${username}/1`, {
         state: { playerTwo: playerObject },
       });
     } catch (error) {

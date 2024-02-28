@@ -56,3 +56,30 @@ export const addPlayer = async (id, data) => {
   }
 };
 // round helper function
+export const getRoundById = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/gameId/${id}/rounds`);
+    if (!response.ok) {
+      throw new Error(`Failed to get game with ID ${id}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Error getting game with ID ${id}:`, error);
+    throw error;
+  }
+};
+export const roundMovesAdd = async function (id, data) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/gameId/${id}/rounds`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding a new player ADDPLAYER:', error);
+    throw error;
+  }
+};
