@@ -13,7 +13,7 @@ function UserSelection({ onUserChoice }) {
 
   return (
     <div className="flex justify-center">
-      <div className=" relative">
+      <div className="relative">
         <img src={bgImage} alt="background Triangle" />
         <PaperButton
           className="absolute -top-12 -left-10"

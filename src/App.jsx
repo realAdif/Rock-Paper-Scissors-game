@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserSelection from './components/UserSelection';
 import Header from './components/Header';
 import Game from './components/Game';
 import Rules from './components/Rules';
+import MultiplayerGame from './components/Mutiplayer/MultiplayerGame';
+import MultiplayerGameRoom from './components/Mutiplayer/MultiplayerGameRoom';
+import MultplayerCreate from './components/Mutiplayer/MultplayerCreate';
+import MultiplayerLobby from './components/Mutiplayer/MultiplayerLobby';
+import MultiplayerJoin from './components/Mutiplayer/MultiplayerJoin';
 
 function App() {
   const [score, setScore] = useState(() => {
@@ -35,18 +41,47 @@ function App() {
   };
 
   return (
-    <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
-      <Header scoreBoard={score} />
-      {!showGame && <UserSelection onUserChoice={handleUserChoice} />}
-      {showGame && (
-        <Game
-          userChoice={userChoice}
-          onResetGame={handleResetGame}
-          setScore={setScore}
-        />
-      )}
-      <Rules />
-    </main>
+    <Router>
+      <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
+        <Header playerOne={score} />
+        <Routes>
+          {/* starting screen */}
+          <Route
+            path="/"
+            element={
+              showGame ? (
+                <Game
+                  userChoice={userChoice}
+                  onResetGame={handleResetGame}
+                  setScore={setScore}
+                  isOnline={false}
+                  playAgain={true}
+                />
+              ) : (
+                <UserSelection onUserChoice={handleUserChoice} />
+              )
+            }
+          />
+          {/* make a game room or join a game */}
+          <Route path="/online" element={<MultiplayerGame />} />
+          {/* create a game room  */}
+          <Route path="/create" element={<MultplayerCreate />} />
+          {/* waiting join game */}
+          <Route path="/lobby/:id/join" element={<MultiplayerJoin />} />
+          {/* waiting room */}
+          <Route
+            path="/lobby/:id/:name/:playerId"
+            element={<MultiplayerLobby />}
+          />
+          {/* games */}
+          <Route
+            path="/online/:id/:name/:playerId"
+            element={<MultiplayerGameRoom />}
+          />
+        </Routes>
+        <Rules />
+      </main>
+    </Router>
   );
 }
 

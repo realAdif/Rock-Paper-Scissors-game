@@ -1,3 +1,5 @@
+// import { v4 as uuidv4 } from 'uuid';
+
 export const choices = ['rock', 'paper', 'scissors'];
 
 export function getRandomChoice(userChoice) {

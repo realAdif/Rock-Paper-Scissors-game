@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@base {
+  p {
+    @apply text-white;
+  }
+}
 @layer {
   .rock {
     background: rgb(220, 46, 78);
