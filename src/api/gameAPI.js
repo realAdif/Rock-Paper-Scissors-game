@@ -83,3 +83,17 @@ export const roundMovesAdd = async function (id, data) {
     throw error;
   }
 };
+export const deleteAllRound = async function (id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/gameId/${id}/rounds`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding a new player ADDPLAYER:', error);
+    throw error;
+  }
+};

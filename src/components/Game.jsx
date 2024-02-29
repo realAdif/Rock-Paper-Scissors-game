@@ -43,10 +43,15 @@ function Game({
     if (playerChoice && isOnline) {
       const result = determineWinner(userChoice, playerChoice);
       setWinner(result);
-      console.log(result);
     }
   }, [userChoice, setScore]);
 
+  useEffect(() => {
+    if (playerChoice) {
+      const result = determineWinner(userChoice, playerChoice);
+      return setWinner(result);
+    }
+  }, [playerChoice]);
   return (
     <div className="container mx-auto">
       {/* lg */}
