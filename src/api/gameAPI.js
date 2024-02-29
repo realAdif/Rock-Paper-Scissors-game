@@ -5,7 +5,6 @@ const API_BASE_URL =
 
 //function to add new player in the db
 export const createGame = async (data) => {
-  console.log(JSON.stringify(data), 'data in createGame');
   try {
     const response = await fetch(`${API_BASE_URL}/gameId`, {
       method: 'POST',
@@ -62,7 +61,8 @@ export const getRoundById = async (id) => {
     if (!response.ok) {
       throw new Error(`Failed to get game with ID ${id}`);
     }
-    return await response.json();
+    const fetchResult = await response.json();
+    return fetchResult.body.rounds;
   } catch (error) {
     console.error(`Error getting game with ID ${id}:`, error);
     throw error;

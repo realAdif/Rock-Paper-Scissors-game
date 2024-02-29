@@ -12,9 +12,23 @@ function generateGameId() {
   return gameId.toLowerCase();
 }
 
-function findSameRound(roundArray, currentPlayer, currentRound) {
-  if (roundArray.length <= 1) return [];
+function generateRoundBody(round, choice, playerId, id) {
+  if (playerId === 'player0') {
+    return {
+      id: id,
+      round: round,
+      player0: choice,
+    };
+  }
+  return {
+    id: id,
+    round: round,
+    player1: choice,
+  };
+}
 
+function findSameRound(roundArray, currentPlayer, currentRound) {
+  if (roundArray.length <= 1) return null;
   const playerId = currentPlayer === 0 ? 1 : 0;
 
   const userPlayer = roundArray.filter(
@@ -24,4 +38,4 @@ function findSameRound(roundArray, currentPlayer, currentRound) {
   return userPlayer;
 }
 
-export { generateGameId, findSameRound };
+export { generateGameId, findSameRound, generateRoundBody };
