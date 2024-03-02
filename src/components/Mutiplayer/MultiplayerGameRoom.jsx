@@ -19,7 +19,6 @@ function MultiplayerGameRoom() {
   const [playerName, setPlayerName] = useState('Loading..');
   const [gameRest, setGameRest] = useState(true);
   const [gameHistory, setGameHistory] = useState([]);
-
   // this function is called when users want to play again
   const handleResetGame = async () => {
     setGameRest(true);
