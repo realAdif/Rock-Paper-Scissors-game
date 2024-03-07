@@ -22,34 +22,31 @@ function MultiplayerGame() {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row  gap-x-6 justify-center text-white border-2 border-header-outline bg-white bg-opacity-10  rounded-lg p-6 w-fit mx-auto">
-      {/* create a game */}
-      <div className="flex flex-col justify-center items-center gap-y-6 p-3">
+    <section className="flex flex-col lg:flex-row gap-y-6 gap-x-6 justify-center text-white rounded-lg p-6 w-fit mx-auto bg-box-color text-sm">
+      <div className="flex flex-col justify-between items-center w-[260px] mx-auto">
+        <p>Start a new game!</p>
         <button
           onClick={() => navigate(`/create`)}
-          className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
+          className="btn-primary w-full"
         >
           Create a game
         </button>
       </div>
-      {/* join game */}
-      <div className="flex flex-col items-center gap-y-6 p-3 lg:border-l-2 lg:border-t-0  border-t border-header-outline">
+      <div className="flex flex-col items-center w-[260px] mx-auto">
         <p>Join a game</p>
         <input
           id="gameIdInput"
           type="text"
           placeholder="enter the game id"
-          className="mx-3 text-center py-3 rounded-md text-black"
+          className="w-full my-2 "
         />
-        <button
-          onClick={handleJoinGame}
-          className="text-white text-center border px-8 py-3 rounded-md hover:bg-white hover:text-black"
-        >
+        {error && (
+          <p className="text-sm text-red-500 mb-2">can not find the game</p>
+        )}
+
+        <button onClick={handleJoinGame} className="btn-primary w-full">
           Join a game
         </button>
-        <p className="text-sm text-red-500">
-          {error && 'Can not find the game'}
-        </p>
       </div>
     </section>
   );

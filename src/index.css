@@ -3,18 +3,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@base {
-  p {
-    @apply text-white;
+@layer base {
+  html {
+    @apply bg-gradient-to-b from-[#1f3756] to-[#141539] text-white;
+  }
+  button {
+    @apply text-center;
+  }
+  input {
+    @apply text-center py-2 rounded-md text-black text-xs;
   }
 }
-@layer {
-  .rock {
-    background: rgb(220, 46, 78);
-    background: linear-gradient(
-      0deg,
-      rgba(220, 46, 78, 1) 0%,
-      rgba(221, 64, 93, 1) 100%
-    );
+/* border px-12 py-3 rounded-md hover:bg-white hover:text-black */
+@layer components {
+  .btn-primary {
+    @apply border px-6 py-3 rounded-md hover:bg-white hover:text-black text-white;
+  }
+  .bg-box-color {
+    @apply border-2 border-header-outline bg-white bg-opacity-10;
   }
 }

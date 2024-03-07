@@ -13,15 +13,12 @@ export default function Rules() {
   return (
     <div className="container mx-auto flex justify-between  mb-12">
       <a
-        className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
+        className="btn-primary"
         href={location.pathname === '/online' ? '/' : '/online'}
       >
         {location.pathname === '/online' ? 'vs PC' : 'Play with a mate!'}
       </a>
-      <button
-        className="text-white text-center border px-12 py-3 rounded-md hover:bg-white hover:text-black"
-        onClick={() => handleRule()}
-      >
+      <button className="btn-primary" onClick={() => handleRule()}>
         RULES
       </button>
 

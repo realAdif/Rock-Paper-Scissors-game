@@ -70,20 +70,11 @@ function MultiplayerLobby() {
           </p>
         </div>
       </div>
-      <div className="text-center mt-6">
-        <h1>Steps:</h1>
-        <p>1.send the code to your mate: {id}</p>
-        <p>
-          2.to check if your mate has joined, click check to see if the player
-          as joined
-        </p>
-        <p>3.when you see you see player 2 name come up, you start the game!</p>
-      </div>
       <div className="w-full mx-auto">
-        <button onClick={handleGetPlayer} className="mx-3">
+        <button onClick={handleGetPlayer} className="btn-primary">
           check
         </button>
-        <button className="mx-3" onClick={handleGameNavigate}>
+        <button className="btn-primary" onClick={handleGameNavigate}>
           Start Game!
         </button>
       </div>

@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { createGame } from '../../api/gameAPI';
 import { useNavigate } from 'react-router-dom';
 import { generateGameId } from '../../util/onlineLogic';
-
+import clipboard_svg from '../../assets/clipboard.svg';
 function MultplayerCreate() {
   // navigate and error handles
   const navigate = useNavigate();
   const [username, setUsername] = useState(null);
+  const [copySuccess, setCopySuccess] = useState(false);
   const [error, setError] = useState(false);
   const [gameId] = useState(generateGameId());
 
@@ -35,28 +36,47 @@ function MultplayerCreate() {
     }
   }
 
+  function handleCopy() {
+    navigator.clipboard.writeText(gameId).then(
+      function () {
+        console.log('Copying to clipboard was successful!');
+        setCopySuccess(true);
+        setTimeout(() => {
+          setCopySuccess(false);
+        }, 2000);
+      },
+      function (err) {
+        console.error('Could not copy text: ', err);
+      }
+    );
+  }
+
   return (
     // need styling
-    <section className="container mx-auto">
-      <div className="text-white text-center">
-        <p>Username</p>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          className="text-black px-2"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+    <section className="container mx-auto bg-box-color rounded-lg p-6 w-[300px]">
+      <input
+        className="w-full"
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Enter your username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <p className="text-sm text-red-500 my-1">
+        {error && 'username can not be empty.'}
+      </p>
 
-        <p>your username: {username}</p>
-        <p className="text-sm text-red-500">
-          {error && 'useranme can not be empty'}
-        </p>
-        <p>Guest username: </p>
-        <p>game id: {gameId}</p>
-
-        <button onClick={handleCreateGame}>Create room</button>
+      <div className="flex items-center justify-between gap-2 text-sm my-3">
+        <p>Game id: {gameId}</p>
+        <button onClick={handleCopy}>
+          <img src={clipboard_svg} alt="clipboard_svg icon" />
+        </button>
       </div>
+      {copySuccess && <p className="text-sm">Copied!</p>}
+
+      <button className="btn-primary w-full my-2" onClick={handleCreateGame}>
+        Create room
+      </button>
     </section>
   );
 }

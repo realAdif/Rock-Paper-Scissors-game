@@ -42,7 +42,7 @@ function App() {
 
   return (
     <Router>
-      <main className="h-screen bg-gradient-to-b from-[#1f3756] to-[#141539] flex flex-col justify-between">
+      <main className="h-screen  flex flex-col justify-between mx-2">
         <Header playerOne={score} />
         <Routes>
           {/* starting screen */}

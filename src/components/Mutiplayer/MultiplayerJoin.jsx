@@ -65,32 +65,45 @@ function MultiplayerJoin() {
   }, [data]);
 
   return (
-    <main className=" container mx-auto h-full text-white w-fit  gap-y-12">
-      <h1 className="text-center">Lobby</h1>
-
-      {/* info */}
-      <p>
-        player admin: Is{' '}
-        {player.player1 ? `${player.player1.username}` : 'waiting for player'}
-      </p>
-      <p>player count: {playerCount} </p>
-      <p>game id : {id} </p>
-      <p>Your Name: {username}</p>
-
-      {/* input */}
-      <input
-        type="text"
-        name="player2Username"
-        id="/"
-        placeholder="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        className="my-8 mr-3  p-2 rounded-md text-black"
-      />
-      <p>{error}</p>
-      {/* start game button */}
-      <button onClick={() => handleJoinGame(playerObject)}>Join game</button>
-    </main>
+    <section className="container mx-auto bg-box-color rounded-lg p-6 gap-y-6 gap-x-6 flex flex-col-reverse lg:flex-row justify-between text-sm w-fit ">
+      <div className="w-[260px] flex flex-col justify-between">
+        <h1 className="text-center">Status</h1>
+        <table className="table-auto text-center w-full my-2 ">
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+          </tr>
+          <tr className="text-green-600">
+            <th>0</th>
+            <th>
+              {player.player1
+                ? `${player.player1.username}`
+                : 'waiting for player'}
+            </th>
+          </tr>
+        </table>
+        <p>Your Name: {username}</p>
+      </div>
+      <div className="w-[260px] flex flex-col justify-between">
+        <h1 className="text-center">Join a game</h1>
+        <input
+          type="text"
+          className="w-full my-2"
+          name="player2Username"
+          id="/"
+          placeholder="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <p>{error}</p>
+        <button
+          className="btn-primary w-full"
+          onClick={() => handleJoinGame(playerObject)}
+        >
+          Join game
+        </button>
+      </div>
+    </section>
   );
 }
 
