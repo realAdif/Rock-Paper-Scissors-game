@@ -31,7 +31,7 @@ function Game({
   useEffect(() => {
     //single game
     if (userChoice && !isOnline) {
-      const randomChoice = getRandomChoice(userChoice);
+      const randomChoice = getRandomChoice();
       setComputerChoice(randomChoice);
       const result = determineWinner(userChoice, randomChoice);
       setWinner(result);
@@ -69,11 +69,7 @@ function Game({
           {/* text */}
           <div className="w-fit mx-auto ">
             <h1 className="text-white text-6xl my-4">
-              {winner}
-              {
-                // if the game is online and the player has not picked
-                !playerChoice && 'WAITING...'
-              }
+              {!isOnline ? winner : !playerChoice && 'WAITING...'}
             </h1>
             <button
               className={
@@ -101,11 +97,11 @@ function Game({
                 {computerChoice === 'scissors' && <ScissorsButton />}
               </div>
             )}
-            {!playerChoice && (
+            {isOnline && (
               <div className="w-[140px] h-[140px] bg-slate-500 rounded-full mx-auto"></div>
             )}
             <p className="text-white mt-8 text-center">
-              {!playerChoice && 'WAITING FOR PLAYER'}
+              {isOnline && 'WAITING FOR PLAYER'}
             </p>
             <p className="text-white mt-8 text-center">
               {playerName ? playerName.toUpperCase() : 'THE HOUSE PICKED'}
@@ -113,7 +109,7 @@ function Game({
           </div>
         </div>
       </div>
-      {/* sm  need to setup the update for playerss*/}
+      {/* sm  need to setup the update for players*/}
       <div className="md:hidden">
         {/* icons */}
         <div className="flex justify-between items-center mx-4">

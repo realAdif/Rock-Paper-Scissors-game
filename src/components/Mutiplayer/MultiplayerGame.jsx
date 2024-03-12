@@ -1,23 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getGameById } from '../../api/gameAPI';
+import useGameIdValidation from '../../hooks/useGameIdValidation';
 
 function MultiplayerGame() {
   // navigate and error handles
-  const [error, setError] = useState(false);
+  const [enteredGameId, setEnteredGameId] = useState(null);
+  const { error, validateGameId } = useGameIdValidation();
   const navigate = useNavigate();
 
   // checking game id and navigate to the lobby:id
   async function handleJoinGame() {
-    try {
-      const enteredGameId = document.getElementById('gameIdInput').value;
-      const fetchedGame = await getGameById(enteredGameId);
-      console.log('Fetched game:', fetchedGame);
-      setError(false);
+    const isValidGameId = await validateGameId(enteredGameId);
+    if (isValidGameId) {
       navigate(`/lobby/${enteredGameId}/join`);
-    } catch (error) {
-      setError(true);
-      console.error('Status code:', error.response.status);
+    } else {
+      console.error('Invalid game ID');
     }
   }
 
@@ -37,6 +34,8 @@ function MultiplayerGame() {
         <input
           id="gameIdInput"
           type="text"
+          value={enteredGameId}
+          onChange={(e) => setEnteredGameId(e.target.value)}
           placeholder="enter the game id"
           className="w-full my-2 "
         />
