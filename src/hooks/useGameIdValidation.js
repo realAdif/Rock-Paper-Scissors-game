@@ -3,7 +3,6 @@ import { getGameById } from '../api/gameAPI';
 
 function useGameIdValidation() {
   const [error, setError] = useState(false);
-
   async function validateGameId(gameId) {
     try {
       const fetchedGame = await getGameById(gameId);
@@ -16,7 +15,6 @@ function useGameIdValidation() {
       return false; // Game ID does not exist
     }
   }
-
   return { error, validateGameId };
 }
 

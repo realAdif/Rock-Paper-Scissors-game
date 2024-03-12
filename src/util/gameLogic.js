@@ -1,5 +1,3 @@
-// import { v4 as uuidv4 } from 'uuid';
-
 export const choices = ['rock', 'paper', 'scissors'];
 
 export function getRandomChoice(userChoice) {
@@ -8,6 +6,7 @@ export function getRandomChoice(userChoice) {
 }
 
 export function determineWinner(user, computer) {
+  if (user === computer) return 'DRAW';
   const winningCombinations = {
     rock: 'scissors',
     paper: 'rock',

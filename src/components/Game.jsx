@@ -31,7 +31,7 @@ function Game({
   useEffect(() => {
     //single game
     if (userChoice && !isOnline) {
-      const randomChoice = getRandomChoice(userChoice);
+      const randomChoice = getRandomChoice();
       setComputerChoice(randomChoice);
       const result = determineWinner(userChoice, randomChoice);
       setWinner(result);
