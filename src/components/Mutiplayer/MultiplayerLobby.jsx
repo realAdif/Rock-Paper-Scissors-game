@@ -1,51 +1,10 @@
-import { useEffect, useState } from 'react';
-import { getGameById } from '../../api/gameAPI';
 import { useParams, useNavigate } from 'react-router-dom';
+import useFetchPlayers from '../../hooks/useFetchPlayers';
 
 function MultiplayerLobby() {
-  // get the id from URL
   const { id, name, playerId } = useParams();
   const navigate = useNavigate();
-  // players
-  const [playerOne, setPlayerOne] = useState({});
-  const [playerTwo, setPlayerTwo] = useState({});
-  // run this function when the component loads
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const newData = await getGameById(id);
-        console.log('Fetched data:', newData);
-        setPlayerOne(newData.players[0]);
-        if (newData.players[1]) setPlayerTwo(newData.players[1]);
-      } catch (error) {
-        console.error('Error creating or fetching game:', error);
-        if (error.response && error.response.status) {
-          console.error('Status code:', error.response.status);
-        }
-      }
-    }
-
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  async function handleGetPlayer() {
-    try {
-      const newData = await getGameById(id);
-      console.log('Fetched data:', newData);
-      setPlayerOne(newData.players[0]);
-      if (newData.players[1]) setPlayerTwo(newData.players[1]);
-    } catch (error) {
-      console.error('Error creating or fetching game:', error);
-      if (error.response && error.response.status) {
-        console.error('Status code:', error.response.status);
-      }
-    }
-  }
-
-  // navigate to the game
+  const { playerOne, playerTwo } = useFetchPlayers(id);
 
   function handleGameNavigate() {
     console.log('Navigating to game');
@@ -54,31 +13,36 @@ function MultiplayerLobby() {
       navigate(`/online/${id}/${name}/${playerId}`);
     }
   }
-
   return (
-    <main className=" container mx-auto h-full text-white">
-      <h1 className="text-center">Loddy</h1>
-      <div className="flex justify-around">
-        <div className="w-fit">
-          <p>
-            player 1 name:
-            {playerOne.username ? playerOne.username : 'Loading..'}
-          </p>
-          <p>
-            player 2 name:
-            {playerTwo.username ? playerTwo.username : 'Loading..'}
-          </p>
-        </div>
-      </div>
-      <div className="w-full mx-auto">
-        <button onClick={handleGetPlayer} className="btn-primary">
-          check
-        </button>
+    <section className="container mx-auto bg-box-color rounded-lg p-6 gap-y-6 gap-x-6 flex flex-col-reverse lg:flex-row justify-between text-sm w-fit backdrop-blur-md ">
+      <div className="w-[260px] flex flex-col justify-between">
+        <h1 className="text-center">Loddy</h1>
+        <table className="text-center w-full my-2 bg-black bg-opacity-20 rounded-md border border-white border-opacity-50 drop-shadow-lg ">
+          <thead className="bg-blue-500 rounded-t-md ">
+            <tr>
+              <th>id</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border border-white border-opacity-50">
+              <th>0</th>
+              <th>{playerOne.username ? playerOne.username : 'Loading..'}</th>
+            </tr>
+            <tr className="border-y-2 border border-white border-opacity-50">
+              <th>1</th>
+              <th> {playerTwo.username ? playerTwo.username : 'Loading..'}</th>
+            </tr>
+          </tbody>
+        </table>
         <button className="btn-primary" onClick={handleGameNavigate}>
-          Start Game!
+          Start!
         </button>
+        <p className="mt-2 text-xs text-center">
+          Multiplayer mode is under development
+        </p>
       </div>
-    </main>
+    </section>
   );
 }
 
