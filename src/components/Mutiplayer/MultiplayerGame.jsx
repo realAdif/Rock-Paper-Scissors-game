@@ -20,6 +20,8 @@ function MultiplayerGame() {
 
   return (
     <section className="flex flex-col lg:flex-row gap-y-6 gap-x-6 justify-center text-white rounded-lg p-6 w-fit mx-auto bg-box-color text-sm">
+      <div></div>
+
       <div className="flex flex-col justify-between items-center w-[260px] mx-auto">
         <p>Start a new game!</p>
         <button
