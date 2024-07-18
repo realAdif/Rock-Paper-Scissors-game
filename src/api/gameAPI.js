@@ -2,7 +2,6 @@ const API_BASE_URL =
   'https://0sbtgksbzj.execute-api.ap-southeast-2.amazonaws.com';
 
 // player helper function
-
 //function to add new player in the db
 export const createGame = async (data) => {
   try {
