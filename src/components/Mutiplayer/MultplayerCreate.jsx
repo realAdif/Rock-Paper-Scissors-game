@@ -1,40 +1,31 @@
-import { useState } from 'react';
+import { supabase } from '../../utils/supabase/client';
+
+import { useState, useEffect } from 'react';
 import { createGame } from '../../api/gameAPI';
 import { useNavigate } from 'react-router-dom';
-import { generateGameId } from '../../util/onlineLogic';
+import { generateGameId } from '../../utils/onlineLogic';
+
 import clipboard_svg from '../../assets/clipboard.svg';
 function MultplayerCreate() {
   // navigate and error handles
-  const navigate = useNavigate();
   const [username, setUsername] = useState(null);
   const [copySuccess, setCopySuccess] = useState(false);
-  const [error, setError] = useState(false);
   const [gameId] = useState(generateGameId());
+  const [error, setError] = useState(false);
 
-  // gameObj to send to server
-  const gameObj = {
-    id: gameId.toString(),
-    players: [
-      {
-        username: username,
-        isActive: true,
-        score: 0,
-      },
-    ],
-  };
-
-  // api call to create a game and navigate to the lobby:id
-  function handleCreateGame() {
-    if (username) {
-      createGame(gameObj);
-      navigate(`/lobby/${gameId}/${username}/0`, {
-        state: { playerOne: gameObj },
-      });
-      setError(false);
-    } else {
-      setError(true);
+  const createRoom = async () => {
+    const { data, error } = await supabase
+      .from('rooms')
+      .insert([{ room_id: gameId }])
+      .single();
+    if (data) {
+      console.log('Room created', data);
     }
-  }
+    if (error) {
+      setError(error);
+      console.log('Error creating room', error);
+    }
+  };
 
   function handleCopy() {
     navigator.clipboard.writeText(gameId).then(
@@ -52,7 +43,6 @@ function MultplayerCreate() {
   }
 
   return (
-    // need styling
     <section className="container mx-auto bg-box-color rounded-lg p-6 w-[300px]">
       <input
         className="w-full"
@@ -74,7 +64,7 @@ function MultplayerCreate() {
       </div>
       {copySuccess && <p className="text-sm">Copied!</p>}
 
-      <button className="btn-primary w-full my-2" onClick={handleCreateGame}>
+      <button className="btn-primary w-full my-2" onClick={createRoom}>
         Create room
       </button>
     </section>

@@ -6,10 +6,10 @@ import {
   getRoundById,
   deleteAllRound,
 } from '../../api/gameAPI';
-import { findSameRound, generateRoundBody } from '../../util/onlineLogic';
+import { findSameRound, generateRoundBody } from '../../utils/onlineLogic';
 
 import UserSelection from '../UserSelection';
-import Game from '../Game';
+import Game from '../../layout/Game';
 
 function MultiplayerGameRoom() {
   const { id, name, playerId } = useParams();

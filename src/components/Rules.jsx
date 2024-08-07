@@ -12,12 +12,12 @@ export default function Rules() {
   };
   return (
     <div className="container mx-auto flex justify-between  mb-12">
-      <a
+      {/* <a
         className="btn-primary"
         href={location.pathname === '/online' ? '/' : '/online'}
       >
         {location.pathname === '/online' ? 'vs PC' : 'Play with a mate!'}
-      </a>
+      </a> */}
       <button className="btn-primary" onClick={() => handleRule()}>
         RULES
       </button>
