@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { PaperButton, RockButton, ScissorsButton } from '../ui/Button';
-import { getRandomChoice, determineWinner } from '../util/gameLogic';
+import { getRandomChoice, determineWinner } from '../utils/gameLogic';
 
 Game.propTypes = {
   userChoice: PropTypes.string.isRequired,

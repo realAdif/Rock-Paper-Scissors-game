@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserSelection from './components/UserSelection';
 import Header from './components/Header';
-import Game from './components/Game';
+import Game from './layout/Game';
 import Rules from './components/Rules';
 import MultiplayerGame from './components/Mutiplayer/MultiplayerGame';
 import MultiplayerGameRoom from './components/Mutiplayer/MultiplayerGameRoom';
